@@ -1,41 +1,24 @@
 {
-  "name": "my-qwik-basic-starter",
-  "description": "App with Routing built-in (recommended)",
-  "engines": {
-    "node": ">=15.0.0"
-  },
+  "name": "tauri-springhead",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "qwik build",
-    "build.client": "vite build",
-    "build.preview": "vite build --ssr src/entry.preview.tsx",
-    "build.types": "tsc --incremental --noEmit",
-    "dev": "vite --mode ssr",
-    "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
-    "fmt": "prettier --write .",
-    "fmt.check": "prettier --check .",
-    "lint": "eslint src/**/*.ts*",
-    "preview": "qwik build preview && vite preview --open",
-    "serve": "echo 'Run \"npm run qwik add\" to install a server adaptor'",
-    "start": "vite --open --mode ssr",
-    "qwik": "qwik"
-  },
-  "devDependencies": {
-    "@builder.io/qwik": "0.13.3",
-    "@builder.io/qwik-city": "0.0.122",
-    "@tauri-apps/cli": "^1.2.0",
-    "@types/eslint": "8.4.9",
-    "@typescript-eslint/eslint-plugin": "5.42.0",
-    "@typescript-eslint/parser": "5.42.0",
-    "eslint": "8.26.0",
-    "eslint-plugin-qwik": "0.13.3",
-    "node-fetch": "3.2.10",
-    "prettier": "2.7.1",
-    "typescript": "4.8.4",
-    "vite": "3.2.2",
-    "vite-tsconfig-paths": "3.5.0"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
   },
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@tauri-apps/api": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^3.0.0",
+    "vite": "^4.0.0",
+    "@tauri-apps/cli": "^1.2.2"
   }
 }
