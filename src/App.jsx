@@ -15,9 +15,11 @@ function App() {
   }
 
   return (
-    <div className="container">
-      <h1>Welcome to Springhead Tauri!</h1>
-      <h4>Client Visualizer for Springhead</h4>
+    <div>
+      <div className="container">
+          <h1>Welcome to Springhead Tauri!</h1>
+          <h4>Client Visualizer for Springhead</h4>
+      </div>
 
       <div className="row">
         <div className="container">
