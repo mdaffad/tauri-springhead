@@ -17,8 +17,8 @@
 .container {
   margin: 0;
   padding-top: 5vh;
-  padding-right: 10vh;
-  padding-left: 10vh;
+  padding-right: 5vw;
+  padding-left: 5vw;
   flex-direction: column;
   text-align: center;
 }
@@ -56,6 +56,7 @@ h1 {
 
 input,
 button,
+.display-kafka-consumer,
 .custom-text {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -69,13 +70,20 @@ button,
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   outline: none;
   margin-right: 5px;
-  line-height: 20px;
-  min-width: 60px;
+  line-height: 1.5em;
 }
 
 .custom-text {
   text-align: left;
-  font-weight: 900;
+  font-weight: 700;
+  min-width: 100px;
+}
+
+.display-kafka-consumer {
+  text-align: left;
+  font-weight: normal;
+  min-width: 60vw;
+  display: inline-block;
 }
 
 .row-space-around {
@@ -103,7 +111,8 @@ button:hover {
   }
 
   input,
-  button {
+  button,
+  .custom-text {
     color: #ffffff;
     background-color: #0f0f0f98;
   }

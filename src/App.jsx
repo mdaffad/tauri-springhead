@@ -118,6 +118,7 @@ function App() {
           <div className="row">
             <h3>Consumer</h3>
           </div>
+
           <div className="row">
             <div className="custom-text">
               Address
@@ -129,6 +130,7 @@ function App() {
               />
             </div>
           </div>
+
           <div className="row">
             <div className="custom-text">
               Topic
@@ -140,17 +142,19 @@ function App() {
               />
             </div>
           </div>
+
           <div className="row" style={{visibility: 'hidden' }}>
             <div className="custom-text">
-              Topic
+              Key
             </div>
             <div>
               <input
-                onChange={(e) => setTopicPublisher(e.currentTarget.value)}
-                placeholder="e.x. tweet"
+                onChange={(e) => setKeyPublisher(e.currentTarget.value)}
+                placeholder="e.x. v1"
               />
             </div>
           </div>
+
           <div className="container">
             <div className="row" >
               <button type="button" onClick={() => subscribe()}>
@@ -160,6 +164,13 @@ function App() {
           </div>
         </div>
       </div>
+
+      <div className="container">
+        <label className="display-kafka-consumer">
+          asdasd
+        </label>
+      </div>
+
     </div>
   );
 }
