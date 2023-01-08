@@ -1,0 +1,1 @@
+MESSAGE_EVENT = 'message';

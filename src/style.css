@@ -75,7 +75,7 @@ button,
 
 .custom-text {
   text-align: left;
-  font-weight: 700;
+  font-weight: 600;
   min-width: 100px;
 }
 
@@ -92,7 +92,7 @@ button,
 
 button {
   cursor: pointer;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 button:hover {
