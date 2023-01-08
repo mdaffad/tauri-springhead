@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import MessageDisplayer from "./component/MessageDisplayer";
@@ -39,14 +39,18 @@ class KafkaConfig {
 }
 
 function App() {
-    const [greetMsg, setGreetMsg] = useState("");
     const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig());
     const [publisherConfig, setPublisherConfig] = useState(new KafkaConfig());
 
-    async function greet() {
-        // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-        setGreetMsg(await invoke("greet", { name }));
-    }
+    useEffect(() => {
+        invoke("subscribe", consumerConfig)
+            .catch(console.error)
+        return () => {
+          // Unbind the event listener on clean up
+          invoke("unsubscribe", consumerConfig)
+            .catch(console.error)
+        };
+      }, [consumerConfig]);
 
     async function send() {
         console.log(publisherConfig.getJSON())
@@ -185,7 +189,11 @@ function App() {
                 </div>
             </div>
 
-            <MessageDisplayer />
+            <div className="container">
+                <label className="display-kafka-consumer">
+                    <MessageDisplayer />
+                </label>
+            </div>
 
         </div>
     );
