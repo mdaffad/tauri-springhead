@@ -40,7 +40,7 @@ class KafkaConfig {
 
 function App() {
     const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig());
-    const [publisherConfig, setPublisherConfig] = useState(new KafkaConfig());
+    const [producerConfig, setProducerConfig] = useState(new KafkaConfig());
 
     useEffect(() => {
         invoke("subscribe", consumerConfig)
@@ -53,23 +53,23 @@ function App() {
       }, [consumerConfig]);
 
     async function send() {
-        console.log(publisherConfig.getJSON())
+        console.log(producerConfig.getJSON())
     }
 
     async function subscribe() {
         console.log(consumerConfig.getJSON())
     }
 
-    function setAddressPublisher(currentConfig, address) {
-        setConsumerConfig(currentConfig.setAddress(address))
+    function setAddressProducer(currentConfig, address) {
+        setProducerConfig(currentConfig.setAddress(address))
     }
 
-    function setTopicPublisher(currentConfig, topic) {
-        setConsumerConfig(currentConfig.setTopic(topic))
+    function setTopicProducer(currentConfig, topic) {
+        setProducerConfig(currentConfig.setTopic(topic))
     }
 
-    function setKeyPublisher(currentConfig, key) {
-        setConsumerConfig(currentConfig.setKey(key))
+    function setKeyProducer(currentConfig, key) {
+        setProducerConfig(currentConfig.setKey(key))
     }
 
     function setAddressConsumer(currentConfig, address) {
@@ -94,7 +94,7 @@ function App() {
             <div className="row">
                 <div className="container">
                     <div className="row">
-                        <h3>Publisher</h3>
+                        <h3>Producer</h3>
                     </div>
                     <div className="row">
                         <div className="custom-text">
@@ -102,7 +102,7 @@ function App() {
                         </div>
                         <div>
                             <input
-                                onChange={(e) => setAddressPublisher(e.currentTarget.value)}
+                                onChange={(e) => setAddressProducer(e.currentTarget.value)}
                                 placeholder="e.x. http://localhost:9092"
                         />
                         </div>
@@ -113,7 +113,7 @@ function App() {
                         </div>
                         <div>
                             <input
-                                onChange={(e) => setTopicPublisher(e.currentTarget.value)}
+                                onChange={(e) => setTopicProducer(e.currentTarget.value)}
                                 placeholder="e.x. tweet"
                             />
                         </div>
@@ -124,7 +124,7 @@ function App() {
                         </div>
                         <div>
                             <input
-                                onChange={(e) => setKeyPublisher(e.currentTarget.value)}
+                                onChange={(e) => setKeyProducer(e.currentTarget.value)}
                                 placeholder="e.x. v1"
                             />
                         </div>
@@ -191,7 +191,7 @@ function App() {
 
             <div className="container">
                 <label className="display-kafka-consumer">
-                    <MessageDisplayer />
+                    <MessageDisplayer message=""/>
                 </label>
             </div>
 
