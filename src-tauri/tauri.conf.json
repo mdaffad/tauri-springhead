@@ -33,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "tauri.springhead.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -60,10 +60,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 900,
         "resizable": true,
         "title": "tauri-springhead",
-        "width": 800
+        "width": 1600
       }
     ]
   }

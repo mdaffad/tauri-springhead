@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { listen } from '@tauri-apps/api/event'
 
 
-
-const consumeMessage = await listen('consume-message', (event) => {
+const consumeMessage = await listen('new-incoming-message', (event) => {
     // event.event is the event name (useful if you want to use a single callback fn for multiple event types)
     // event.payload is the payload object
     const eventMessage = new Event('message', event);
@@ -11,7 +10,7 @@ const consumeMessage = await listen('consume-message', (event) => {
     document.dispatchEvent(eventMessage);
   });
   
-// emit('consume-message', {
+// emit('new-incoming-message', {
 //     message: 'Tauri is awesome!',
 // })
 

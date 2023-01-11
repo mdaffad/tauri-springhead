@@ -3,6 +3,8 @@
     windows_subsystem = "windows"
 )]
 
+mod producer;
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -10,9 +12,19 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-fn subscribe() -> String {
-    format!("subscribe")
+fn send(config: producer::ProducerConfig, message: String) {
+    // *new_producer = producer::ProducerState::self(producer::Producer::new(&config));
+    let mut new_producer = producer::Producer::new(&config);
+    new_producer.send(&config.topic, config.key, message);
 }
+
+// #[tauri::command]
+// fn update_producer(config: producer::ProducerConfig, state: tauri::State<producer::Producer>) {
+//     // *new_producer = producer::ProducerState::self(producer::Producer::new(&config));
+//     let mut new_producer = state.inner();
+//     let binding = producer::Producer::new(&config);
+//     println!("{:?}", new_producer.address)
+// }
 
 #[tauri::command]
 fn unsubscribe() -> String {
@@ -20,14 +32,18 @@ fn unsubscribe() -> String {
 }
 
 #[tauri::command]
-fn send() -> String {
+fn subscribe() -> String {
     format!("send")
 }
 
 fn main() {
     tauri::Builder::default()
+        .manage(producer::Producer::new(
+            &producer::ProducerConfig::new("".to_owned(), "".to_owned(),"".to_owned())
+        ))
         .invoke_handler(
             tauri::generate_handler![
+                send,
                 greet,
                 subscribe,
                 unsubscribe,

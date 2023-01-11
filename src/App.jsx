@@ -3,13 +3,6 @@ import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import MessageDisplayer from "./component/MessageDisplayer";
 
-// listen to the `click` event and get a function to remove the event listener
-// there's also a `once` function that subscribes to an event and automatically unsubscribes the listener on the first event
-// const consumeMessage = await listen('consume-message', (event) => {
-//   // event.event is the event name (useful if you want to use a single callback fn for multiple event types)
-//   // event.payload is the payload object
-// })
-
 class KafkaConfig {
     constructor(address = "", topic = "", key = "") {
         this.address = address;
@@ -18,15 +11,18 @@ class KafkaConfig {
     }
     
     setAddress(address) {
-        this.address = address;
+        this.address = address? address : "";
+        return this;
     }
 
     setTopic(topic) {
-        this.topic = topic;
+        this.topic = topic? topic: "";
+        return this;
     }
 
     setKey(key){
-        this.key = key;
+        this.key = key? key: "";
+        return this;
     }
 
     getJSON() {
@@ -42,17 +38,11 @@ function App() {
     const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig());
     const [producerConfig, setProducerConfig] = useState(new KafkaConfig());
 
-    useEffect(() => {
-        invoke("subscribe", consumerConfig)
-            .catch(console.error)
-        return () => {
-          // Unbind the event listener on clean up
-          invoke("unsubscribe", consumerConfig)
-            .catch(console.error)
-        };
-      }, [consumerConfig]);
-
     async function send() {
+        invoke("send", {
+            "config": producerConfig.getJSON(),
+            "message": "Test Kafka via react tauri"
+        })
         console.log(producerConfig.getJSON())
     }
 
@@ -60,28 +50,28 @@ function App() {
         console.log(consumerConfig.getJSON())
     }
 
-    function setAddressProducer(currentConfig, address) {
-        setProducerConfig(currentConfig.setAddress(address))
+    function setAddressProducer(address) {
+        setProducerConfig(producerConfig.setAddress(address))
     }
 
-    function setTopicProducer(currentConfig, topic) {
-        setProducerConfig(currentConfig.setTopic(topic))
+    function setTopicProducer(topic) {
+        setProducerConfig(producerConfig.setTopic(topic))
     }
 
-    function setKeyProducer(currentConfig, key) {
-        setProducerConfig(currentConfig.setKey(key))
+    function setKeyProducer(key) {
+        setProducerConfig(producerConfig.setKey(key))
     }
 
-    function setAddressConsumer(currentConfig, address) {
-        setConsumerConfig(currentConfig.setAddress(address))
+    function setAddressConsumer(address) {
+        setConsumerConfig(consumerConfig.setAddress(address))
     }
 
-    function setTopicConsumer(currentConfig, topic) {
-        setConsumerConfig(currentConfig.setTopic(topic))
+    function setTopicConsumer(topic) {
+        setConsumerConfig(consumerConfig.setTopic(topic))
     }
 
-    function setKeyConsumer(currentConfig, key) {
-        setConsumerConfig(currentConfig.setKey(key))
+    function setKeyConsumer(key) {
+        setConsumerConfig(consumerConfig.setKey(key))
     }
 
     return (
