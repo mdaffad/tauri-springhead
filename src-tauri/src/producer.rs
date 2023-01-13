@@ -1,5 +1,3 @@
-use std::sync::Mutex;
-
 use kafka::producer::{Producer as KafkaProducer, Record};
 
 #[derive(serde::Deserialize)]
@@ -35,7 +33,7 @@ impl Producer {
                 connection: Some(v),
                 address: config.address.to_owned(),
             },
-            Err(e) => Self {
+            Err(_e) => Self {
                 connection: None,
                 address: config.address.to_owned(),
             },
@@ -55,13 +53,3 @@ impl Producer {
         }
     }
 }
-
-// pub struct ProducerState(Producer);
-
-// let producer_config = ProducerConfig::new(
-//     "localhost:9092".to_owned(),"message-topic".to_owned(),"test".to_owned()
-// );
-// let mut producer = Producer::new(&producer_config);
-// let message = "test new kafka producer";
-// producer.send(&producer_config.topic, producer_config.key, message.to_owned());
-// println!("test");

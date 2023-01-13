@@ -35,8 +35,8 @@ class KafkaConfig {
 }
 
 function App() {
-    const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig());
-    const [producerConfig, setProducerConfig] = useState(new KafkaConfig());
+    const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic", "v1"));
+    const [producerConfig, setProducerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic"));
 
     async function send() {
         invoke("send", {
@@ -47,6 +47,9 @@ function App() {
     }
 
     async function subscribe() {
+        invoke("subscribe", {
+            "config": consumerConfig.getJSON(),
+        })
         console.log(consumerConfig.getJSON())
     }
 
@@ -93,7 +96,8 @@ function App() {
                         <div>
                             <input
                                 onChange={(e) => setAddressProducer(e.currentTarget.value)}
-                                placeholder="e.x. http://localhost:9092"
+                                placeholder="e.x. localhost:9092"
+                                defaultValue="localhost:9092"
                         />
                         </div>
                     </div>
@@ -105,6 +109,7 @@ function App() {
                             <input
                                 onChange={(e) => setTopicProducer(e.currentTarget.value)}
                                 placeholder="e.x. tweet"
+                                defaultValue="message-topic"
                             />
                         </div>
                     </div>
@@ -116,6 +121,7 @@ function App() {
                             <input
                                 onChange={(e) => setKeyProducer(e.currentTarget.value)}
                                 placeholder="e.x. v1"
+                                defaultValue="v1"
                             />
                         </div>
                     </div>
@@ -140,7 +146,8 @@ function App() {
                         <div>
                             <input
                                 onChange={(e) => setAddressConsumer(e.currentTarget.value)}
-                                placeholder="e.x. http://localhost:9092"
+                                placeholder="e.x. localhost:9092"
+                                defaultValue="localhost:9092"
                             />
                         </div>
                     </div>
@@ -153,6 +160,8 @@ function App() {
                             <input
                                 onChange={(e) => setTopicConsumer(e.currentTarget.value)}
                                 placeholder="e.x. tweet"
+                                defaultValue="message-topic"
+
                             />
                         </div>
                     </div>

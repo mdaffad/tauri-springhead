@@ -7,6 +7,7 @@ const consumeMessage = await listen('new-incoming-message', (event) => {
     // event.payload is the payload object
     const eventMessage = new Event('message', event);
     console.log("get in consume message");
+    console.log(event);
     document.dispatchEvent(eventMessage);
   });
   
@@ -19,8 +20,8 @@ function MessageDisplayer(props) {
 
     useEffect(() => {
         function handleMessage(event) {
-            // console.log(message)
-            // console.log(event.payload.message)
+            console.log(message)
+            console.log(event.payload.message)
         }
         
         // Bind the event listener

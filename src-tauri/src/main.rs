@@ -4,6 +4,7 @@
 )]
 
 mod producer;
+mod consumer;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -32,8 +33,12 @@ fn unsubscribe() -> String {
 }
 
 #[tauri::command]
-fn subscribe() -> String {
-    format!("send")
+fn subscribe(config: consumer::ConsumerConfig, app_handle: tauri::AppHandle) {
+    let mut new_consumer = consumer::Consumer::new(config, app_handle.clone());
+    println!("subscribed on rust");
+    std::thread::spawn(move || {
+        new_consumer.subscribe();
+      });
 }
 
 fn main() {
