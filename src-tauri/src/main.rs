@@ -14,7 +14,6 @@ fn greet(name: &str) -> String {
 
 #[tauri::command]
 fn send(config: producer::ProducerConfig, message: String) {
-    // *new_producer = producer::ProducerState::self(producer::Producer::new(&config));
     let mut new_producer = producer::Producer::new(&config);
     new_producer.send(&config.topic, config.key, message);
 }
