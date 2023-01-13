@@ -62,7 +62,7 @@
         "fullscreen": false,
         "height": 900,
         "resizable": true,
-        "title": "tauri-springhead",
+        "title": "Tauri Springhead",
         "width": 1600
       }
     ]

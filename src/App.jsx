@@ -81,7 +81,7 @@ function App() {
         <div>
             <div className="container">
                 <h1>Welcome to Springhead Tauri!</h1>
-                <h4>Client Visualizer for Springhead</h4>
+                <h4>Client for Kafka over Tauri</h4>
             </div>
 
             <div className="row">
