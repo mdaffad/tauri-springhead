@@ -19,14 +19,6 @@ fn send(config: producer::ProducerConfig, message: String) {
     new_producer.send(&config.topic, config.key, message);
 }
 
-// #[tauri::command]
-// fn update_producer(config: producer::ProducerConfig, state: tauri::State<producer::Producer>) {
-//     // *new_producer = producer::ProducerState::self(producer::Producer::new(&config));
-//     let mut new_producer = state.inner();
-//     let binding = producer::Producer::new(&config);
-//     println!("{:?}", new_producer.address)
-// }
-
 #[tauri::command]
 fn unsubscribe() -> String {
     format!("unsubscribe")

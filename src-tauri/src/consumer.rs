@@ -2,11 +2,11 @@ use std::str;
 
 use rdkafka::{
     consumer::{BaseConsumer, Consumer as KafkaConsumer},
-    ClientConfig, ClientContext, Message,
+    ClientConfig, Message,
 };
 
 
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle};
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -45,9 +45,6 @@ impl Consumer {
         .create()
         .expect("invalid consumer config");
 
-        // consumer
-        //     .subscribe(&["message-topic"])
-        //     .expect("topic subscribe failed");
         let topic = config.topic.to_owned();
         
         Self {
