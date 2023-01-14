@@ -26,10 +26,10 @@ fn unsubscribe() -> String {
 #[tauri::command]
 fn subscribe(config: consumer::ConsumerConfig, app_handle: tauri::AppHandle) {
     let topic = config.topic.to_owned();
-    let mut new_consumer = consumer::Consumer::new(config, app_handle.clone());
+    let mut new_consumer = consumer::Consumer::new(config);
     println!("subscribed on rust");
     std::thread::spawn(move || {
-        new_consumer.subscribe(topic);
+        new_consumer.subscribe(topic, app_handle);
       });
 }
 

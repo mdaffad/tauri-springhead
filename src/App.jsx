@@ -35,8 +35,8 @@ class KafkaConfig {
 }
 
 function App() {
-    const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic", "v1"));
-    const [producerConfig, setProducerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic"));
+    const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic"));
+    const [producerConfig, setProducerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic", "v1"));
 
     async function send() {
         invoke("send", {
@@ -189,9 +189,7 @@ function App() {
             </div>
 
             <div className="container">
-                <label className="display-kafka-consumer">
-                    <MessageDisplayer message=""/>
-                </label>
+                <MessageDisplayer/>
             </div>
 
         </div>

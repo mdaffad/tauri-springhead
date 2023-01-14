@@ -6,7 +6,7 @@ use rdkafka::{
 };
 
 
-use tauri::{AppHandle};
+use tauri::{AppHandle, Manager};
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -32,11 +32,10 @@ pub struct Consumer {
     pub connection: Option<BaseConsumer>,
     pub address: String,
     pub topic: String,
-    pub app_handler: Option<AppHandle>,
 }
 
 impl Consumer {
-    pub fn new(config: ConsumerConfig, app_handler: AppHandle) -> Self {
+    pub fn new(config: ConsumerConfig) -> Self {
         let connection: BaseConsumer = ClientConfig::new()
         .set("bootstrap.servers", config.address.to_owned())
         .set("auto.offset.reset", "smallest")
@@ -51,12 +50,11 @@ impl Consumer {
             connection: Some(connection),
             address: config.address,
             topic: topic,
-            app_handler: Some(app_handler),
         }
     }
 
-    pub fn subscribe(&mut self, topic: String) {
-        if !self.connection.is_none() && !self.app_handler.is_none() {
+    pub fn subscribe(&mut self, topic: String, app_handler: AppHandle) {
+        if !self.connection.is_none() {
             self.connection.as_mut()
                 .expect("No connection")
                 .subscribe(&[&topic])
@@ -66,19 +64,16 @@ impl Consumer {
                     for msg_result in self.connection.as_mut().expect("No connection").iter() {
                         println!("inside msg_result");
                         let msg = msg_result.unwrap();
-                        let value = msg.payload();
-                        match value {
-                            Some(value) => {
-                                println!(
-                                    "received value {:?}",
-                                    std::str::from_utf8(value),
-                                );
-                            }
-                            None => {
-                                println!("No message");
-                            }
+                        if let Some(value) = msg.payload() {
+                            app_handler.emit_all(
+                            "new-incoming-message",
+                            Payload { 
+                                message: std::str::from_utf8(value)
+                                .expect("Error convertion")
+                                .into() 
+                            })
+                                .unwrap();
                         }
-                        
                     }
                 }
             }

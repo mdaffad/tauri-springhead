@@ -5,25 +5,28 @@ import { listen } from '@tauri-apps/api/event'
 const consumeMessage = await listen('new-incoming-message', (event) => {
     // event.event is the event name (useful if you want to use a single callback fn for multiple event types)
     // event.payload is the payload object
-    const eventMessage = new Event('message', event);
-    console.log("get in consume message");
-    console.log(event);
+    const eventMessage = new CustomEvent('message', {'detail': event.payload});
     document.dispatchEvent(eventMessage);
   });
   
-// emit('new-incoming-message', {
-//     message: 'Tauri is awesome!',
-// })
-
 function MessageDisplayer(props) {
-    const [message, setMessage] = useState(props.message)
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         function handleMessage(event) {
-            console.log(message)
-            console.log(event.payload.message)
+            let newMessage = event?.detail?.message;
+            if(newMessage) {
+                console.log("new message: " + newMessage);
+                if(newMessage) {
+                    setMessage(message + "\n" + JSON.stringify(newMessage));
+                }
+                else {
+                    setMessage(JSON.stringify(newMessage));
+                }
+            }
+            console.log(message);
         }
-        
+        console.log("outside handle message")
         // Bind the event listener
         document.addEventListener("message", handleMessage);
 
@@ -34,9 +37,8 @@ function MessageDisplayer(props) {
     }, [message]);
 
     return (
-        <div>
-            {message}
-        </div>
+        <textarea readOnly className="display-kafka-consumer" value={message} rows={10}>
+        </textarea>
     )
 }
 
