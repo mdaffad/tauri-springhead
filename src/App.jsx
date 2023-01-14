@@ -37,44 +37,45 @@ class KafkaConfig {
 function App() {
     const [consumerConfig, setConsumerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic"));
     const [producerConfig, setProducerConfig] = useState(new KafkaConfig("localhost:9092", "message-topic", "v1"));
+    const [producerMessage, setProducerMessage] = useState("");
 
     async function send() {
         invoke("send", {
             "config": producerConfig.getJSON(),
-            "message": "Test Kafka via react tauri"
+            "message": producerMessage
         })
-        console.log(producerConfig.getJSON())
+        console.log(producerConfig.getJSON());
     }
 
     async function subscribe() {
         invoke("subscribe", {
             "config": consumerConfig.getJSON(),
-        })
-        console.log(consumerConfig.getJSON())
+        });
+        console.log(consumerConfig.getJSON());
     }
 
     function setAddressProducer(address) {
-        setProducerConfig(producerConfig.setAddress(address))
+        setProducerConfig(producerConfig.setAddress(address));
     }
 
     function setTopicProducer(topic) {
-        setProducerConfig(producerConfig.setTopic(topic))
+        setProducerConfig(producerConfig.setTopic(topic));
     }
 
     function setKeyProducer(key) {
-        setProducerConfig(producerConfig.setKey(key))
+        setProducerConfig(producerConfig.setKey(key));
     }
 
     function setAddressConsumer(address) {
-        setConsumerConfig(consumerConfig.setAddress(address))
+        setConsumerConfig(consumerConfig.setAddress(address));
     }
 
     function setTopicConsumer(topic) {
-        setConsumerConfig(consumerConfig.setTopic(topic))
+        setConsumerConfig(consumerConfig.setTopic(topic));
     }
 
     function setKeyConsumer(key) {
-        setConsumerConfig(consumerConfig.setKey(key))
+        setConsumerConfig(consumerConfig.setKey(key));
     }
 
     return (
@@ -189,7 +190,16 @@ function App() {
             </div>
 
             <div className="container">
-                <MessageDisplayer/>
+                <div className="row">
+                    <textarea
+                        className="display-kafka-consumer"
+                        value={producerMessage} 
+                        rows={10}
+                        onChange={(event) => setProducerMessage(event.target.value)}
+                        readOnly={false}
+                    />
+                    <MessageDisplayer/>
+                </div>
             </div>
 
         </div>

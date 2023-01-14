@@ -17,11 +17,12 @@ function MessageDisplayer(props) {
             let newMessage = event?.detail?.message;
             if(newMessage) {
                 console.log("new message: " + newMessage);
-                if(newMessage) {
-                    setMessage(message + "\n" + JSON.stringify(newMessage));
+                if(message == "") {
+                    console.log("empty")
+                    setMessage(JSON.stringify(newMessage));
                 }
                 else {
-                    setMessage(JSON.stringify(newMessage));
+                    setMessage(message + "\n" + JSON.stringify(newMessage));
                 }
             }
             console.log(message);
@@ -37,8 +38,7 @@ function MessageDisplayer(props) {
     }, [message]);
 
     return (
-        <textarea readOnly className="display-kafka-consumer" value={message} rows={10}>
-        </textarea>
+        <textarea readOnly className="display-kafka-consumer" value={message} rows={10} />
     )
 }
 

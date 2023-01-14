@@ -82,8 +82,10 @@ button,
 .display-kafka-consumer {
   text-align: left;
   font-weight: normal;
-  min-width: 60vw;
+  min-width: 30vw;
   display: inline-block;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
 }
 
 .row-space-around {
