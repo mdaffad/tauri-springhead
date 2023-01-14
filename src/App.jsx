@@ -44,14 +44,12 @@ function App() {
             "config": producerConfig.getJSON(),
             "message": producerMessage
         })
-        console.log(producerConfig.getJSON());
     }
 
     async function subscribe() {
         invoke("subscribe", {
             "config": consumerConfig.getJSON(),
         });
-        console.log(consumerConfig.getJSON());
     }
 
     function setAddressProducer(address) {
